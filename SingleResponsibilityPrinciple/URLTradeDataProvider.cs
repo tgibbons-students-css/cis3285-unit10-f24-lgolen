@@ -17,7 +17,7 @@ namespace SingleResponsibilityPrinciple
             this.logger = logger;
         }
 
-        public IEnumerable<string> GetTradeData()
+        public Task<IEnumerable<string>> GetTradeData()
         {
             List<string> tradeData = new List<string>();
             logger.LogInfo("Reading trades from URL: " + url);
@@ -41,7 +41,7 @@ namespace SingleResponsibilityPrinciple
                     }
                 }
             }
-            return tradeData;
+            return Task.FromResult((IEnumerable<string>)tradeData);
         }
     }
 }

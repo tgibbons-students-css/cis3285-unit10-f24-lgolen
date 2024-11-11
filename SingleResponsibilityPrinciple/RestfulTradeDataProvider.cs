@@ -20,7 +20,7 @@ namespace SingleResponsibilityPrinciple
             this.logger = logger;
         }
 
-        async Task<List<string>> GetTradeAsync()
+        async Task<IEnumerable<string>> GetTradeAsync()
         {
             logger.LogInfo("Connecting to the Restful server using HTTP");
             List<string> tradesString = null;
@@ -36,13 +36,9 @@ namespace SingleResponsibilityPrinciple
             return tradesString;
         }
 
-        public IEnumerable<string> GetTradeData()
+        public async Task<IEnumerable<string>> GetTradeData()
         {
-            Task<List<string>> task = Task.Run(() => GetTradeAsync());
-            task.Wait();
-
-            List<string> tradeList = task.Result;
-            return tradeList;
+            return await GetTradeAsync();
         }
     }
 }
